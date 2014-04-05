@@ -55,7 +55,9 @@ function setUpTail(res, timeSync) {
     setInterval(function() {
 
         var ind = randomNum(0, 20);
+        //var ind = 1;
 
+/*
         if (ind == 0 || spikeOn) {
 
             console.log("Spike started");
@@ -73,13 +75,13 @@ function setUpTail(res, timeSync) {
             }
 
         }
-
+*/
         for (var i=0; i<ind; i++) {
             var data = dummyData.getLogString();
             res.write("data: " + data + "\n\n");
         }
 
-    }, 500);
+    }, 1000);
 
     setInterval(function() {
 
@@ -170,6 +172,15 @@ var dummyData = (function() {
         return "GET";
     }
 
+    function getStatus() {
+        var num = randomNum(300);
+        if (num < 1) {
+            //console.log('404');
+            //return 404;
+        }
+        return 200;
+    }
+
     function getLogString() {
 
         var userAgent = getBrowserString();
@@ -183,7 +194,8 @@ var dummyData = (function() {
             "bytes": fileInfo[1],
             "method": getMethod(),
             "serve-time": (randomNum(10) * randomNum(3)),
-            "ip": "1.1.1.1"
+            "ip": "1.1.1.1",
+            "status": getStatus()
         });
 
     }
